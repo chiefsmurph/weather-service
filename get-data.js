@@ -20,7 +20,7 @@ module.exports = async ip => {
         const { city, region_name, country_code, zip } = locationResponse;
         if (country_code !== 'US') throw new Error('only supports USA people');
         location = `${city}, ${region_name}`;
-        const weatherResponse = await getWeather(zip);
+        const weatherResponse = await getWeather(zip, city, region_name);
         console.log({ weatherResponse });
         const { weather: [{ main }], main: { temp }, timezone } = weatherResponse;
         weather = `${main} and ${temp} degrees fareinheit`;
