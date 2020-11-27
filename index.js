@@ -18,6 +18,8 @@ app.options('*', cors());
 
 app.get('*', async (req, res) => {
   const ip = req.header('cf-connecting-ip') || (req.header('x-forwarded-for') || req.connection.remoteAddress).split(', ').pop();
+  const userAgent = req.headers['user-agent'];
+  if (userAgent.toLowerCase().includes('bot')) return {};
   console.log({ ip });
   const data = await getData(ip);
   res.json(data);
