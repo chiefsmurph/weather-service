@@ -30,7 +30,7 @@ module.exports = async ip => {
         error = e.toString();
      } finally {
         return {
-            ip,
+            // ip,
             location,
             weather,
             time,
