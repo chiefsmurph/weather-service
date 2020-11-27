@@ -7,7 +7,6 @@ const getData = require('./get-data');
 const express = require('express');
 const app = express();
 
-const bodyParser = require('body-parser');
 const cors = require("cors");
 
 const port = 3011;
@@ -17,9 +16,8 @@ const server = app.listen(port, () => {
 
 app.options('*', cors()); 
 
-
 app.get('*', async (req, res) => {
-    const ip = (req.header('x-forwarded-for') || req.connection.remoteAddress).split(', ').pop();
+    const ip = req.header('X-Real-IP') || (req.header('x-forwarded-for') || req.connection.remoteAddress).split(', ').pop();
     console.log({ ip });
     const data = await getData(ip);
     res.json(data);
