@@ -19,7 +19,7 @@ app.options('*', cors());
 
 
 app.get('*', async (req, res) => {
-    const ip = '72.132.253.93' || req.header('x-forwarded-for') || req.connection.remoteAddress;
+    const ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
     console.log({ ip });
     const data = await getData(ip);
     res.json(data);
