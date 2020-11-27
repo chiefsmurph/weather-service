@@ -17,8 +17,12 @@ const server = app.listen(port, () => {
 app.options('*', cors()); 
 
 app.get('*', async (req, res) => {
-    const ip = req.header('X-Real-IP') || (req.header('x-forwarded-for') || req.connection.remoteAddress).split(', ').pop();
-    console.log({ ip });
-    const data = await getData(ip);
-    res.json(data);
+  console.log({
+    headers: req.headers,
+    rawHeaders: req.rawHeaders
+  })
+  const ip = req.header('X-Real-IP') || (req.header('x-forwarded-for') || req.connection.remoteAddress).split(', ').pop();
+  console.log({ ip });
+  const data = await getData(ip);
+  res.json(data);
 });
